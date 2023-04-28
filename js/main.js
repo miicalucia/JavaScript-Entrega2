@@ -6,7 +6,7 @@ class Verdura {
     }
 }
 
-let listaVerduras = [];
+const listaVerduras = [];
 console.log(listaVerduras);
 
 alert("Vamos de compras a la verdulería!!");
@@ -48,27 +48,38 @@ function agregarVerdura() {
     }
 
     let precio = prompt("Coloque el precio, por favor: ");
-    let verdura = new Verdura(nombre, cantidad, precio);
-    listaVerduras.push(verdura);
+
+    let nuevaVerdura = new Verdura(nombre, cantidad, precio);
+    listaVerduras.push(nuevaVerdura);
     console.log(listaVerduras);
 }
 
 function eliminarVerdura() {
     let nombre = prompt("¿Qué verdura/fruta desea eliminar?: ")
     let verdura = listaVerduras.find(verdura => verdura.nombre === nombre);
+    if (!verdura) {
+        alert(`No se encontró ninguna verdura/fruta con el nombre ${nombre}`);
+        return;
+    }
     let indiceVerdura = listaVerduras.indexOf(verdura);
     listaVerduras.splice(indiceVerdura, 1);
-    console.log(listaVerduras);
+    alert(`Se eliminó ${verdura.nombre} de la lista.`);
+    return verdura;
 }
 
 function listaProductos() {
-    let listado = "Listado de productos: \n";
-    for (let i = 0; i < listaVerduras.lenght; i++) {
+    /*let listado = "Listado de productos: \n";
+    for (let i = 0; i < listaVerduras.length; i++) {
         listado += `Verdura/Fruta: ${listaVerduras[i].nombre}\n`
         listado += `Cantidad: ${listaVerduras[i].cantidad}\n`
         listado += `Precio: ${listaVerduras[i].precio}\n`
     }
-    alert(listado);
+    alert(listado);*/
+    let listado = listaVerduras.map(function (verdura) {
+        return `Verdura/Fruta: ${verdura.nombre} \n Cantidad: ${verdura.cantidad} \n Precio: ${verdura.precio} \n`;
+    });
+    alert(`Listado de productos: \n${listado.join("")}`);
+
 }
 
 function pagar() {
