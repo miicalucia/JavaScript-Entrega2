@@ -9,9 +9,6 @@ class Verdura {
 const listaVerduras = [];
 console.log(listaVerduras);
 
-alert("Vamos de compras a la verdulería!!");
-
-
 function inicio() {
     let elegirOpcion = "";
     while (elegirOpcion !== "5") {
@@ -68,20 +65,24 @@ function eliminarVerdura() {
 }
 
 function listaProductos() {
-    /*let listado = "Listado de productos: \n";
-    for (let i = 0; i < listaVerduras.length; i++) {
-        listado += `Verdura/Fruta: ${listaVerduras[i].nombre}\n`
-        listado += `Cantidad: ${listaVerduras[i].cantidad}\n`
-        listado += `Precio: ${listaVerduras[i].precio}\n`
-    }
-    alert(listado);*/
     let listado = listaVerduras.map(function (verdura) {
         return `Verdura/Fruta: ${verdura.nombre} \n Cantidad: ${verdura.cantidad} \n Precio: ${verdura.precio} \n`;
     });
     alert(`Listado de productos: \n${listado.join("")}`);
-
 }
 
 function pagar() {
+    let totalAPagar = listaVerduras.reduce((acumulador, verdura) => {
+        return acumulador + verdura.cantidad * verdura.precio;
+    }, 0);
 
+    let cantidadDeCuotas = parseFloat(prompt(`¿En cuantas cuotas desea abonar?:`));
+    if (cantidadDeCuotas <= 3) {
+        alert(`El total de su compra es de $${totalAPagar}. Presione enter para aceptar.`);
+    } else if (cantidadDeCuotas >= 6) {
+        alert(`El total de su compra es de $${totalAPagar * 1.25}. Presione enter para aceptar.`);
+    } else {
+        alert(`El total de su compra es de $${totalAPagar * 1.5}. Presione enter para aceptar.`);
+    }
+    alert(`Pago realizado con éxito. ¡Gracias por su compra!`);
 }
